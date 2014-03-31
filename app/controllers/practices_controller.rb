@@ -18,6 +18,22 @@ class PracticesController < ApplicationController
     end
   end
 
+  def update
+    practice = Practice.find(params[:id])
+
+    if practice.update_attributes(practice_params)
+      render json: practice
+    else
+      render json: practice.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    practice = Practice.find(params[:id])
+    practice.destroy
+    head :no_content
+  end
+
   private
   def practice_params
     params.require(:practice).permit(:name, :description)
