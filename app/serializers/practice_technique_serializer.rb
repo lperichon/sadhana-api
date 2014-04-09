@@ -3,4 +3,5 @@ class PracticeTechniqueSerializer < ActiveModel::Serializer
   attributes :id,
   			 :position
   has_one :practice_part
+  has_one :technique
 end

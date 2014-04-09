@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140409120229) do
+ActiveRecord::Schema.define(version: 20140409124301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,26 @@ ActiveRecord::Schema.define(version: 20140409120229) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "technique_id"
   end
 
   add_index "practice_techniques", ["practice_part_id"], name: "index_practice_techniques_on_practice_part_id", using: :btree
+  add_index "practice_techniques", ["technique_id"], name: "index_practice_techniques_on_technique_id", using: :btree
+
+  create_table "practice_techniques_techniques", id: false, force: true do |t|
+    t.integer "practice_technique_id"
+    t.integer "technique_id"
+  end
 
   create_table "practices", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "techniques", force: true do |t|
+    t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
