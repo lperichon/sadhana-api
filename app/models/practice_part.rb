@@ -1,6 +1,6 @@
 class PracticePart < ActiveRecord::Base
   belongs_to :practice
-#  belongs_to :part
+  belongs_to :part
 #  has_many :practice_techniques, :order => "position", :dependent => :destroy
 #  acts_as_list :scope => :practice
 
