@@ -10,7 +10,8 @@ class ApplicationController < ActionController::API
     def authenticate_user_from_token!
       token = request.headers['auth-token'].to_s
       email = request.headers['auth-email'].to_s
-      return unless token && email
+
+      return if token.blank? || email.blank?
 
       user = User.find_by_email(email)
 
