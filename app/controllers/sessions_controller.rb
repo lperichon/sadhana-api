@@ -1,4 +1,7 @@
 class SessionsController < Devise::SessionsController
+
+  skip_before_filter :authenticate_user_from_token!
+
   def create
     resource = User.find_by_email(params[:email])
 

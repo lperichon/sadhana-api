@@ -1,5 +1,5 @@
 class Practice < ActiveRecord::Base
-#  belongs_to :user
+  belongs_to :user
   has_many :practice_parts, :dependent => :destroy #, :order => "position"
 #  has_many :practice_events, :dependent => :destroy
 

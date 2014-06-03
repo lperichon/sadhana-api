@@ -1,15 +1,15 @@
 class PracticesController < ApplicationController
   def index
-    render json: Practice.all
+    render json: @current_user.practices.all
   end
 
   def show
-    practice = Practice.find(params[:id])
+    practice = current_user.practices.find(params[:id])
     render json: practice
   end
 
   def create
-    practice = Practice.new(practice_params)
+    practice = current_user.practices.new(practice_params)
 
     if practice.save
       render json: practice, status: :created
@@ -19,7 +19,7 @@ class PracticesController < ApplicationController
   end
 
   def update
-    practice = Practice.find(params[:id])
+    practice = current_user.practices.find(params[:id])
 
     if practice.update_attributes(practice_params)
       render json: practice
@@ -29,7 +29,7 @@ class PracticesController < ApplicationController
   end
 
   def destroy
-    practice = Practice.find(params[:id])
+    practice = current_user.practices.find(params[:id])
     practice.destroy
     head :no_content
   end
