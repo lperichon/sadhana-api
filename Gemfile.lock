@@ -133,4 +133,5 @@ DEPENDENCIES
   rack-cors
   rails (= 4.2.1)
   rails-api
+  responders
   thin
