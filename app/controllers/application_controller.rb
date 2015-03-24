@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::ImplicitRender
   include ActionController::StrongParameters
+  include ActionController::HttpAuthentication::Token::ControllerMethods
 
   before_filter :authenticate_user_from_token!
 
@@ -11,23 +12,17 @@ class ApplicationController < ActionController::API
 
   private
 
-    def authenticate_user_from_token!
-      token = request.headers['auth-token'].to_s
-      email = request.headers['auth-email'].to_s
-	  
-      if token.blank? || email.blank?
-      	render json: {
-    		  success: false,
-    		  message: "Error with your auth-token"
-    		}, status: 401
-  		return false
-      end
-      user = User.find_by_email(email)
-      
+  def authenticate_user_from_token!
+    Rails.logger.debug "==========> #{request.headers['token']}"
+
+    authenticate_with_http_token do |token, options|
+      user_email = options[:email].presence
+      user = user_email && User.find_by_email(user_email)
+
       if user && Devise.secure_compare(user.authentication_token, token)
-      	Rails.logger.debug("Setting current_user")
-      	@current_user = user
+        @current_user = user
         sign_in user, store: false
       end
     end
+  end
 end
