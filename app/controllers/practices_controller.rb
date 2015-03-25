@@ -3,7 +3,7 @@ class PracticesController < ApplicationController
 
   def index
     practices = current_user.practices.all
-    render json: practices
+    render json: practices, each_serializer: PracticeCollectionSerializer
   end
 
   def show
