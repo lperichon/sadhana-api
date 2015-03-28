@@ -1,9 +1,9 @@
 class PracticesController < ApplicationController
   include ActionController::Serialization
-
+  
   def index
     practices = current_user.practices.all
-    render json: practices, each_serializer: PracticeCollectionSerializer
+    render json: practices, each_serializer: PracticeSerializer
   end
 
   def show
