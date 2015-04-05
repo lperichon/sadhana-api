@@ -2,6 +2,7 @@ class PracticeTechniqueSerializer < ActiveModel::Serializer
   attributes :id,
   			 :position,
   			 :minutes,
-  			 :seconds
+  			 :seconds,
+  			 :compensate
   has_one :technique, include: false
 end
